@@ -83,7 +83,10 @@ while running:
                 playerX_change = 5
 
             if event.key == pygame.K_SPACE:
-                fire_bullet(playerX,bulletY)
+                if bullet_state is "ready":
+                    #Get the current x co-ordinates of battleship
+                    bulletX = playerX
+                    fire_bullet(playerX,bulletY)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -110,9 +113,14 @@ while running:
         enemyY += enemyY_change
 
     #Bullet movement
+    if bulletY <= 0:
+        bulletY = 480
+        bullet_state = "ready"
+
+
     if bullet_state is "fire":
-        fire_bullet(playerX, playerY)
-        bulletY == bulletY_change
+        fire_bullet(playerX, bulletY)
+        bulletY -= bulletY_change
 
 
 
