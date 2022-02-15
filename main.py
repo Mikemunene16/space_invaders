@@ -33,11 +33,30 @@ enemyX_change = 3
 enemyY_change = 40
 
 
+#Bullet
+bulletImg = pygame.image.load('bullet.png')
+bulletX = 0
+bulletY = 480
+bulletX_change = 0
+bulletY_change = 10
+#Ready - can't see the bullet on the screen
+#Fire - the bullet is currently moving
+bullet_state = "ready"
+
+
 def player(x,y):
     screen.blit(playerImg, (x, y))
 
 def enemy(x,y):
     screen.blit(enemyImg, (x, y))
+
+
+def fire_bullet(x,y):
+    global bullet_state
+    bullet_state = "fire"
+    screen.blit(bulletImg, (x + 16, y + 10))
+
+
 
 #GAME LOOP
 running = True
@@ -63,12 +82,16 @@ while running:
             if event.key == pygame.K_RIGHT:
                 playerX_change = 5
 
+            if event.key == pygame.K_SPACE:
+                fire_bullet(playerX,bulletY)
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
     
     
-# Checking the boundaries of battleship
+    # Checking the boundaries of battleship
+
     playerX += playerX_change
 
     if playerX <= 0:
@@ -76,7 +99,7 @@ while running:
     elif playerX >= 736:
         playerX = 736
 
-#Enemy movement
+    #Enemy movement
     enemyX += enemyX_change
 
     if enemyX <= 0:
@@ -85,6 +108,13 @@ while running:
     elif enemyX >= 736:
         enemyX_change = -3
         enemyY += enemyY_change
+
+    #Bullet movement
+    if bullet_state is "fire":
+        fire_bullet(playerX, playerY)
+        bulletY == bulletY_change
+
+
 
     player(playerX, playerY)
     enemy(enemyX, enemyY)
