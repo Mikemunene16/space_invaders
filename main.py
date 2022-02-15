@@ -1,4 +1,5 @@
 import pygame
+import random
 
 #Initialize the pygame
 pygame.init()
@@ -20,8 +21,18 @@ playerY = 480
 playerX_change = 0
 
 
+#Enemy
+enemyImg = pygame.image.load('alien1.png')
+enemyX = random.randint(0,800)
+enemyY = random.randint(50,150)
+enemyX_change = 0
+
+
 def player(x,y):
     screen.blit(playerImg, (x, y))
+
+def enemy(x,y):
+    screen.blit(enemyImg, (x, y))
 
 #GAME LOOP
 running = True
@@ -59,6 +70,7 @@ while running:
         playerX = 736
 
     player(playerX, playerY)
+    enemy(enemyX, enemyY)
     pygame.display.update()
 
 
