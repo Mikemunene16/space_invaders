@@ -7,6 +7,10 @@ pygame.init()
 #Create the display and screen size
 screen = pygame.display.set_mode((800,600))
 
+
+#Background
+background = pygame.image.load('background.png')
+
 #Title and Icon
 pygame.display.set_caption("Space Invaders") 
 icon = pygame.image.load('icon.png')
@@ -25,7 +29,7 @@ playerX_change = 0
 enemyImg = pygame.image.load('alien1.png')
 enemyX = random.randint(0,800)
 enemyY = random.randint(50,150)
-enemyX_change = 0.3
+enemyX_change = 3
 enemyY_change = 40
 
 
@@ -41,6 +45,8 @@ while running:
 
     #RGB of background color
     screen.fill((0, 0, 0))
+    #Background Image
+    screen.blit(background,(0,0))
     
     
 
@@ -53,13 +59,13 @@ while running:
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_LEFT:
-                playerX_change = -0.3
+                playerX_change = -5
             if event.key == pygame.K_RIGHT:
-                playerX_change = 0.3
+                playerX_change = 5
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                playerX_change = 0 
+                playerX_change = 0
     
     
 # Checking the boundaries of battleship
@@ -74,10 +80,10 @@ while running:
     enemyX += enemyX_change
 
     if enemyX <= 0:
-        enemyX_change = 0.3
+        enemyX_change = 3
         enemyY += enemyY_change
     elif enemyX >= 736:
-        enemyX_change = -0.3
+        enemyX_change = -3
         enemyY += enemyY_change
 
     player(playerX, playerY)
