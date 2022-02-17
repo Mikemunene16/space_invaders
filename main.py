@@ -27,18 +27,28 @@ playerX_change = 0
 
 
 #Enemy
-enemyImg = pygame.image.load('alien1.png')
-enemyX = random.randint(0,735)
-enemyY = random.randint(50,150)
-enemyX_change = 3
-enemyY_change = 40
+enemyImg = []
+enemyX = []
+enemyY = []
+enemyX_change = []
+enemyY_change = []
+num_of_enemies = 5
+
+for i in range(num_of_enemies):
+    enemyImg.append(pygame.image.load('alien1.png'))
+    enemyX.append(random.randint(0,735))
+    enemyY.append(random.randint(50,150))
+    enemyX_change.append(3)
+    enemyY_change.append(40)
+
+
+
 
 
 #Bullet
 bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
 bulletY = 480
-bulletX_change = 0
 bulletY_change = 10
 #Ready - can't see the bullet on the screen
 #Fire - the bullet is currently moving
@@ -74,8 +84,7 @@ while running:
     screen.fill((0, 0, 0))
     #Background Image
     screen.blit(background,(0,0))
-    
-    
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
