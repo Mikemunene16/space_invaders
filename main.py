@@ -58,7 +58,7 @@ textX = 10
 textY = 10
 
 def show_score(x,y):
-    score = font.render("Your Score:  "+ str(score_value), True, (0, 0, 255))
+    score = font.render("Your Score:  "+ str(score_value), True, (255, 0, 255))
     screen.blit(score, (x, y))
 
 def player(x,y):
