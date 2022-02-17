@@ -1,3 +1,4 @@
+from tkinter import font
 import pygame
 import random
 import math
@@ -50,13 +51,14 @@ bulletY_change = 10
 #Fire - the bullet is currently moving
 bullet_state = "ready"
 
-score = 0
+score_value = 0
+font = pygame.font.Font('freesansbold.ttf',32)
 
 def player(x,y):
     screen.blit(playerImg, (x, y))
 
-def enemy(x,y):
-    screen.blit(enemyImg, (x, y))
+def enemy(x,y,i):
+    screen.blit(enemyImg[i], (x, y))
 
 
 def fire_bullet(x,y):
@@ -127,14 +129,16 @@ while running:
             enemyY[i] += enemyY_change[i]
         
         #Collision
-        collision = isCollision(enemyX,enemyY,bulletX,bulletY)
+        collision = isCollision(enemyX[i],enemyY[i],bulletX,bulletY)
         if collision:
             bulletY = 480
             bullet_state = "ready"
             score += 1
             print(score)
-            enemyX = random.randint(0,735)
-            enemyY = random.randint(50,150)
+            enemyX[i] = random.randint(0,735)
+            enemyY[i] = random.randint(50,150)
+        
+        enemy(enemyX[i], enemyY[i], i)
 
     #Bullet movement
     if bulletY <= 0:
@@ -147,7 +151,6 @@ while running:
         bulletY -= bulletY_change
 
     player(playerX, playerY)
-    enemy(enemyX, enemyY)
     pygame.display.update()
 
 
