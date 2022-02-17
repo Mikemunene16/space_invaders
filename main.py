@@ -41,10 +41,6 @@ for i in range(num_of_enemies):
     enemyX_change.append(3)
     enemyY_change.append(40)
 
-
-
-
-
 #Bullet
 bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
@@ -111,7 +107,6 @@ while running:
     
     
     # Checking the boundaries of battleship
-
     playerX += playerX_change
 
     if playerX <= 0:
@@ -120,14 +115,26 @@ while running:
         playerX = 736
 
     #Enemy movement
-    enemyX += enemyX_change
+    for i in range(num_of_enemies):
 
-    if enemyX <= 0:
-        enemyX_change = 3
-        enemyY += enemyY_change
-    elif enemyX >= 736:
-        enemyX_change = -3
-        enemyY += enemyY_change
+        enemyX[i] += enemyX_change[i]
+
+        if enemyX[i] <= 0:
+            enemyX_change[i] = 3
+            enemyY[i] += enemyY_change[i]
+        elif enemyX[i] >= 736:
+            enemyX_change[i] = -3
+            enemyY[i] += enemyY_change[i]
+        
+        #Collision
+        collision = isCollision(enemyX,enemyY,bulletX,bulletY)
+        if collision:
+            bulletY = 480
+            bullet_state = "ready"
+            score += 1
+            print(score)
+            enemyX = random.randint(0,735)
+            enemyY = random.randint(50,150)
 
     #Bullet movement
     if bulletY <= 0:
@@ -138,17 +145,6 @@ while running:
     if bullet_state is "fire":
         fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
-
-    #Collision
-    collision = isCollision(enemyX,enemyY,bulletX,bulletY)
-    if collision:
-        bulletY = 480
-        bullet_state = "ready"
-        score += 1
-        print(score)
-        enemyX = random.randint(0,735)
-        enemyY = random.randint(50,150)
-
 
     player(playerX, playerY)
     enemy(enemyX, enemyY)
